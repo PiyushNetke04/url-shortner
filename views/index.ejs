@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>URL Shortener</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+            width: 250px;
+        }
+
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        table {
+            margin: auto;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            padding: 10px;
+            border: 1px solid gray;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>URL Shortener</h1>
+    <form method="POST" action="/shorten">
+        <input type="text" name="url" placeholder="Enter long URL" required>
+        <br>
+        <input type="text" name="customId" placeholder="Custom short id (optional)">
+        <br>
+        <button>Shorten</button>
+    </form>
+    <% if(shortUrl){ %>
+        <p>
+            New Short URL:
+            <a href="<%= shortUrl %>">
+                <%= shortUrl %>
+            </a>
+        </p>
+        <% } %>
+            <h2>All URLs</h2>
+            <table>
+                <tr>
+                    <th>Original URL</th>
+                    <th>Short URL</th>
+                    <th>Clicks</th>
+                    <th>Copy</th>
+                    <th>Delete</th>
+                </tr>
+                <% urls.forEach(url=> { %>
+                    <tr>
+                        <td>
+                            <%= url.originalUrl %>
+                        </td>
+                        <td>
+                            <a href="/<%= url.shortId %>">
+                                <%= url.shortId %>
+                            </a>
+                        </td>
+                        <td>
+                            <%= url.clicks %>
+                        </td>
+                        <td>
+                            <button onclick="copyLink('<%= url.shortId %>')">Copy</button>
+                        </td>
+                        <td>
+                            <a href="/delete/<%= url._id %>">Delete</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </table>
+            <script>
+                function copyLink(id) {
+                    const link = `http://localhost:3000/${id}`;
+                    navigator.clipboard.writeText(link);
+                    alert("Copied!");
+                }
+            </script>
+</body>
+
+</html>
