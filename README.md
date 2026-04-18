@@ -1,9 +1,7 @@
 # URL Shortener
-
 A full-stack URL Shortener built using Node.js, Express, MongoDB, and EJS.
 
 ## Features
-
 - Convert long URL to short URL
 - Custom short URL option
 - Redirect to original link
@@ -21,7 +19,6 @@ A full-stack URL Shortener built using Node.js, Express, MongoDB, and EJS.
 - nanoid
 
 ## How to run
-
 npm install
 node app.js
 
